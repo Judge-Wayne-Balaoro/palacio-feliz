@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palacio Feliz Resort | Admin Panel</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/palacio_admin.css') }}">
+</head>
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-logo">
+                <span class="logo-block">PALACIO</span>
+                <span class="logo-script">Feliz</span>
+                <span class="admin-badge">Admin Panel</span>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" onclick="showSection('dashboard', this)">
+                    <i class="bi bi-speedometer2"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('booking-approval', this)">
+                    <i class="bi bi-check2-square"></i>
+                    <span class="nav-text">Booking Approval</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('all-reservations', this)">
+                    <i class="bi bi-calendar-check"></i>
+                    <span class="nav-text">All Reservations</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('calendar', this)">
+                    <i class="bi bi-calendar3"></i>
+                    <span class="nav-text">Calendar View</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('guests', this)">
+                    <i class="bi bi-people"></i>
+                    <span class="nav-text">Guests</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('reviews', this)">
+                    <i class="bi bi-star"></i>
+                    <span class="nav-text">Guest Reviews</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('payments', this)">
+                    <i class="bi bi-credit-card"></i>
+                    <span class="nav-text">Payments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('events', this)">
+                    <i class="bi bi-gift"></i>
+                    <span class="nav-text">Events & Packages</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('reports', this)">
+                    <i class="bi bi-graph-up"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="showSection('settings', this)">
+                    <i class="bi bi-gear"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+            <li class="nav-item logout-item">
+                <a href="#" class="nav-link" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <button class="mobile-toggle" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
+            <h1 class="header-title">Palacio Feliz Resort <span>– Admin Panel</span></h1>
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-badge" id="notificationCount">3</span>
+                </button>
+                <div class="admin-profile">
+                    <div class="admin-avatar">AD</div>
+                    <div class="admin-info">
+                        <div class="admin-name">Admin User</div>
+                        <div class="admin-role">Resort Manager</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h2 class="section-title">Dashboard Overview</h2>
+                <div class="breadcrumb">Home / Dashboard</div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Total Bookings</div>
+                            <div class="stat-value" id="totalBookings">0</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change">↑ from last month</div>
+                </div>
+
+                <div class="stat-card pending">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Pending Approvals</div>
+                            <div class="stat-value" id="pendingApprovals">0</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change">Requires attention</div>
+                </div>
+
+                <div class="stat-card approved">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Approved Bookings</div>
+                            <div class="stat-value" id="approvedBookings">0</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change">↑ from last month</div>
+                </div>
+
+                <div class="stat-card revenue">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Monthly Revenue</div>
+                            <div class="stat-value" id="totalRevenue">₱0.0</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+                    </div>
+                    <div class="stat-change">↑ from last month</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">Monthly Bookings Overview</h3>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <select class="form-select" id="dashboardRange" style="width: auto;">
+                            <option value="this_month">This Month</option>
+                            <option value="last_month">Last Month</option>
+                            <option value="last_2_months">Last 2 Months</option>
+                            <option value="last_6_months">Last 6 Months</option>
+                            <option value="last_year" selected>Last 12 Months</option>
+                        </select>
+                        <button class="btn btn-success btn-sm" id="exportExcelBtn" type="button">
+                            <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-body">
+                    <canvas id="bookingsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Recent Bookings</h3>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="showSection('all-reservations', document.querySelectorAll('.nav-link')[2])">View All</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOKING APPROVAL SECTION -->
+        <section id="booking-approval" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Booking Approval</h2>
+                <div class="breadcrumb">Home / Booking Approval</div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Pending Booking Requests</h3>
+                    <div class="table-filters">
+                        <div class="search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" placeholder="Search requests..." id="approvalSearch" onkeyup="filterApprovals()">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Guest Name</th>
+                                <th>Contact Number</th>
+                                <th>Event Type</th>
+                                <th>Submitted At</th>
+                                <th>No. of Guests</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="approvalTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALL RESERVATIONS SECTION -->
+        <section id="all-reservations" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">All Reservations</h2>
+                <div class="breadcrumb">Home / All Reservations</div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Complete Booking List</h3>
+                    <div class="table-filters">
+                        <select class="form-select form-select-sm" id="statusFilter" onchange="filterReservations()">
+                            <option value="">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                        <input type="date" class="form-control form-control-sm" id="dateFilter" onchange="filterReservations()">
+                        <div class="search-box">
+                            <i class="bi bi-search"></i>
+                            <input type="text" placeholder="Search bookings..." class="form-control-sm" id="reservationSearch" onkeyup="filterReservations()">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Guest Name</th>
+                                <th>Event Type</th>
+                                <th>Check-in</th>
+                                <th>Check-out</th>
+                                <th>Guests</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservationsTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALENDAR VIEW SECTION -->
+        <section id="calendar" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Calendar View</h2>
+                <div class="breadcrumb">Home / Calendar</div>
+            </div>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3 class="chart-title" id="currentMonth">February 2026</h3>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)"><i class="bi bi-chevron-left"></i></button>
+                        <button onclick="changeMonth(1)"><i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar populated by JavaScript -->
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <span class="badge" style="background: rgba(212, 175, 55, 0.3); color: var(--gold);">Available</span>
+                    <span class="badge" style="background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); color: var(--gold);">Partially Booked</span>
+                    <span class="badge" style="background: rgba(220, 53, 69, 0.1); border: 1px solid var(--danger); color: var(--danger);">Fully Booked</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- GUESTS SECTION -->
+        <section id="guests" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Guest Management</h2>
+                <div class="breadcrumb">Home / Guests</div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Registered Guests</h3>
+                    <div class="search-box">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search guests..." id="guestSearch" onkeyup="filterGuests()">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Guest Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Total Bookings</th>
+                                <th>Last Visit</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guestsTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- GUEST REVIEWS SECTION -->
+        <section id="reviews" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Guest Reviews</h2>
+                <div class="breadcrumb">Home / Reviews</div>
+            </div>
+
+            <div class="reviews-grid" id="reviewsContainer">
+                <!-- Review cards populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- PAYMENTS SECTION -->
+        <section id="payments" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Payment Tracking</h2>
+                <div class="breadcrumb">Home / Payments</div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Payment Records</h3>
+                    <div class="table-filters">
+                        <select class="form-select form-select-sm" id="paymentFilter" onchange="filterPayments()">
+                            <option value="">All Status</option>
+                            <option value="Paid">Paid</option>
+                            <option value="Partial">Partial</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Guest Name</th>
+                                <th>Total Amount</th>
+                                <th>Amount Paid</th>
+                                <th>Balance</th>
+                                <th>Payment Status</th>
+                                <th>Record Payment</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECORD PAYMENT MODAL-->
+        <div class="modal fade" id="recordPaymentModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="recordPaymentForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Record Payment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" id="recordPaymentBookingId">
+
+                            <div class="mb-3">
+                                <label for="recordPaymentMethod" class="form-label">Payment Method</label>
+                                <select id="recordPaymentMethod" class="form-select" required>
+                                    <option value="">Select payment method</option>
+                                    <option value="paymaya">PayMaya</option>
+                                    <option value="gcash">GCash</option>
+                                    <option value="cash">Cash</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="recordPaymentAmount" class="form-label">Amount the customer paid</label>
+                                <input
+                                    type="number"
+                                    id="recordPaymentAmount"
+                                    class="form-control"
+                                    min="1"
+                                    step="0.01"
+                                    placeholder="Enter amount paid"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Record</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+<!-- PAYMENT DETAILS MODAL -->
+<div class="modal fade" id="paymentDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Payment Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="paymentDetailsBody">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- EVENTS & PACKAGES SECTION -->
+        <section id="events" class="content-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Events & Packages</h2>
+                    <div class="breadcrumb">Home / Events & Packages</div>
+                </div>
+                <button class="btn-gold" type="button" data-bs-toggle="modal" data-bs-target="#addPackageModal">Add Package</button>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Package List</h3>
+                </div>
+                <div id="packagesContainer" class="row g-3"></div>
+            </div>
+
+            <!-- Add / Edit Package Modal -->
+            <div class="modal fade" id="addPackageModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <form id="addPackageForm">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="packageModalTitle">Add New Package</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                    <input type="hidden" id="packageId">
+
+                    <div class="mb-3">
+                        <label for="packageName" class="form-label">Package Name</label>
+                        <input type="text" class="form-control" id="packageName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="packageDesc" class="form-label">Inclusion</label>
+                        <textarea class="form-control" id="packageDesc" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="packagePax" class="form-label">No. of pax included in the package</label>
+                        <input type="number" class="form-control" id="packagePax" min="1" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="packageWeekdayPrice" class="form-label">Price (Weekdays)</label>
+                            <input type="number" class="form-control" id="packageWeekdayPrice" min="0" step="0.01" required>
+                        </div>
+                        </div>
+
+                        <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="packageWeekendPrice" class="form-label">Price (Weekends)</label>
+                            <input type="number" class="form-control" id="packageWeekendPrice" min="0" step="0.01" required>
+                        </div>
+                        </div>
+
+                        <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="packageHolidayPrice" class="form-label">Price (Holidays)</label>
+                            <input type="number" class="form-control" id="packageHolidayPrice" min="0" step="0.01" required>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="packageTimeSlot" class="form-label">Time</label>
+                        <select class="form-select" id="packageTimeSlot" required>
+                        <option value="">Select time slot</option>
+                        <option value="6:00 am to 5:00 pm">6:00 am to 5:00 pm</option>
+                        <option value="6:00 pm to 5:00 am">6:00 pm to 5:00 am</option>
+                        <option value="6:00 am to 5:00 am">6:00 am to 5:00 am</option>
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="modal-footer">
+                    <button type="submit" class="btn-gold w-100" id="packageSubmitBtn">Save Package</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- REPORTS SECTION -->
+        <section id="reports" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Reports & Analytics</h2>
+                <div class="breadcrumb">Home / Reports</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Monthly Revenue</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Booking Statistics</h3>
+                        <canvas id="statisticsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Monthly Summary</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Total Bookings</th>
+                                <th>Revenue</th>
+                                <th>Occupancy Rate</th>
+                                <th>Avg. Guest Count</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthlySummaryTable">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS SECTION -->
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Settings</h2>
+                <div class="breadcrumb">Home / Settings</div>
+            </div>
+
+            <div class="form-container">
+                <h4 class="mb-4" style="font-family: var(--heading-font); color: var(--dark);">Resort Information</h4>
+                <form id="resortSettingsForm" onsubmit="saveSettings(event)">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Resort Name</label>
+                                <input type="text" class="form-control" value="Palacio Feliz" id="settingsResortName" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" class="form-control" value="palaciofelizprivateresort@gmail.com" id="settingsContactEmail" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Contact Phone</label>
+                        <input type="tel" class="form-control" value="0931-058-3564" id="settingsContactPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" rows="3" id="settingsAddress">Gaya Gaya Bulucan, Evergreen Ave, Bulucan, 3023 Bulacan</textarea>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <h4 class="mb-4" style="font-family: var(--heading-font); color: var(--dark);">Change Password</h4>
+                    <div class="form-group">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currentPassword">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-gold mt-3">Save Changes</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    <script src="{{ url_for('static', filename='js/palacio_admin.js') }}"></script>
+</body>
+</html>

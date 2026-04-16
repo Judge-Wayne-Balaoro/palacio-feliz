@@ -1,0 +1,30 @@
+# Environment
+.env
+*.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Uploads (user content - should not be in repo)
+uploads/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flask
+instance/
+*.sqlite

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Palacio Feliz Resort</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='assets/') }}Palacio Feliz nb.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/palacio_customer.css') }}">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: MAIN (Home)
+     id="page-main"
+════════════════════════════════════════════════════════ -->
+<div id="page-main" class="page active">
+
+    <!-- NAV -->
+    <nav class="navbar">
+        <div class="logo-container">
+            <img class="logo" src="{{ url_for('static', filename='assets/Palacio (2).png') }}" alt="Palacio Feliz">
+        </div>
+        <button class="hamburger" id="main-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="Services" id="main-navLinks">
+            <a class="link" href="#about-container">About</a>
+            <a class="link" href="#customerPackagesContainer">Packages</a>
+            <a class="link" href="#Amenities-container">Amenities</a>
+            <a class="link" href="#calendar-section">Check Availability</a>
+            <a class="btn-link" data-goto="page-booking">Book Now</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="content-container">
+        <video class="teaser" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='assets/Teaser (1).mp4') }}">
+        </video>
+        <div class="hero-overlay">
+            <p class="hero-tagline">Your <span>Paradise</span><br>Awaits</p>
+            <p class="hero-sub">Palacio Feliz Private Resort · Bulacan</p>
+            <a class="hero-cta" data-goto="page-booking">Reserve Your Stay</a>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="about-container">
+        <div class="aboutus reveal-left">
+            <p class="section-label">Our Story</p>
+            <h2>About<br>Palacio Feliz</h2>
+            <div class="section-divider" style="margin: 0 0 24px;"></div>
+            <p class="aboutustext">
+                Welcome to <b>Palacio Feliz Private Resort</b>, your perfect place to escape from the busy life.
+                Our resort is designed to give you comfort, relaxation, and unforgettable moments.
+                <br><br>
+                Palacio Feliz Resort was founded with one goal in mind — to create a peaceful sanctuary where families, couples, and friends can reconnect with each other.
+                <br><br>
+                <b>What we offer</b><br>
+                At Palacio Feliz Resort, we provide:<br>
+                • Bali Inspired Pool <br>
+                • Comfortable and modern Rooms <br>
+                • Event Venues <br><br>
+                Every detail of our resort is carefully designed to make your stay relaxing and enjoyable.
+            </p>
+        </div>
+        <div class="resortview reveal-right">
+            <img src="{{ url_for('static', filename='assets/View.jpg') }}" alt="Resort View">
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div id="gallery-container">
+        <div class="gallery-header reveal">
+            <h2>GALLERY</h2>
+            <div class="section-divider"></div>
+            <p style="margin-top:16px;">Experience Infinity Pool, Cozy Rooms, and Exciting Activities</p>
+        </div>
+        <div class="pictures">
+            <div class="gallery-item reveal reveal-delay-1"><img src="{{ url_for('static', filename='assets/Resort name.jpg') }}" alt="Resort"></div>
+            <div class="gallery-item reveal reveal-delay-2"><img src="{{ url_for('static', filename='assets/Cozy Room.jpg') }}" alt="Room"></div>
+            <div class="gallery-item reveal reveal-delay-3"><img src="{{ url_for('static', filename='assets/Event hall.jpg') }}" alt="Event Hall"></div>
+            <div class="gallery-item reveal reveal-delay-1"><img src="{{ url_for('static', filename='assets/Inner pool.jpg') }}" alt="Pool"></div>
+            <div class="gallery-item reveal reveal-delay-2"><img src="{{ url_for('static', filename='assets/Tables and Chairs.jpg') }}" alt="Dining"></div>
+            <div class="gallery-item reveal reveal-delay-3"><img src="{{ url_for('static', filename='assets/Top pool view.jpg') }}" alt="Pool View"></div>
+        </div>
+    </div>
+
+    <!-- PACKAGES -->
+    <div class="rates" id="customerPackagesContainer">
+        <!-- Packages loaded by JavaScript -->
+    </div>
+
+    <!-- AMENITIES -->
+    <div id="Amenities-container">
+        <div class="amenities-header reveal">
+            <h2>AMENITIES</h2>
+            <div class="section-divider"></div>
+            <p style="color:var(--muted);font-size:13px;letter-spacing:2px;margin-top:16px;">Everything included in your stay</p>
+        </div>
+        <div class="amenities">
+            <div class="amenity-item reveal reveal-delay-1"><img src="{{ url_for('static', filename='assets/Hotel Style Bathroom.jpg') }}" alt="Bathroom"><div class="amenity-label">Hotel Style Bathroom</div></div>
+            <div class="amenity-item reveal reveal-delay-2"><img src="{{ url_for('static', filename='assets/Kitchen&Ref.jpg') }}" alt="Kitchen"><div class="amenity-label">Full Kitchen &amp; Refrigerator</div></div>
+            <div class="amenity-item reveal reveal-delay-3"><img src="{{ url_for('static', filename='assets/WiFi.jpg') }}" alt="WiFi"><div class="amenity-label">Free Internet</div></div>
+            <div class="amenity-item reveal reveal-delay-4"><img src="{{ url_for('static', filename='assets/Smart Tv.jpg') }}" alt="TV"><div class="amenity-label">55″ Smart TV</div></div>
+            <div class="amenity-item reveal reveal-delay-1"><img src="{{ url_for('static', filename='assets/Videoke.jpg') }}" alt="Videoke"><div class="amenity-label">Videoke</div></div>
+            <div class="amenity-item reveal reveal-delay-2"><img src="{{ url_for('static', filename='assets/Billiards.jpg') }}" alt="Billiards"><div class="amenity-label">Billiards</div></div>
+            <div class="amenity-item reveal reveal-delay-3"><img src="{{ url_for('static', filename='assets/Bali inspired Pool.jpg') }}" alt="Pool"><div class="amenity-label">Bali Inspired Pool</div></div>
+            <div class="amenity-item reveal reveal-delay-4"><img src="{{ url_for('static', filename='assets/Kiddie pool.jpg') }}" alt="Kiddie Pool"><div class="amenity-label">Kiddie Pool</div></div>
+        </div>
+    </div>
+
+    <!-- BOOKING CALENDAR (inline) -->
+    <div id="calendar-section">
+        <div class="cal-inline-header reveal">
+            <p class="section-label" style="text-align:center;">Availability</p>
+            <h2>Booking <span>Calendar</span></h2>
+            <div class="section-divider"></div>
+            <p class="cal-inline-sub">Check available dates before making your reservation</p>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="legend reveal">
+            <div class="legend-item"><span class="legend-dot available-dot"></span><span>Available</span></div>
+            <div class="legend-item"><span class="legend-dot day-dot"></span><span>Day Swimming</span></div>
+            <div class="legend-item"><span class="legend-dot night-dot"></span><span>Night Swimming</span></div>
+            <div class="legend-item"><span class="legend-dot overnight-dot"></span><span>Overnight</span></div>
+            <div class="legend-item"><span class="legend-dot today-dot"></span><span>Today</span></div>
+            <div class="legend-item"><span class="legend-dot past-dot"></span><span>Past / Unavailable</span></div>
+        </div>
+
+        <div class="cal-inline-body reveal">
+            <!-- CALENDAR CARD -->
+            <div class="calendar-card">
+                <div class="cal-month-nav">
+                    <button class="cal-arrow" id="prev">&#10094;</button>
+                    <h2 id="month-year"></h2>
+                    <button class="cal-arrow" id="next">&#10095;</button>
+                </div>
+                <div class="cal-divider"></div>
+                <div class="cal-days-header">
+                    <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+                    <div>Thu</div><div>Fri</div><div>Sat</div>
+                </div>
+                <div class="cal-dates" id="dates"></div>
+            </div>
+
+            <!-- SLOTS PANEL -->
+            <div class="slots-panel" id="slotsPanel">
+                <div class="slots-header">
+                    <h3 id="selectedDateLabel">Select a date to view bookings</h3>
+                </div>
+                <div class="slots-body" id="slotsBody">
+                    <p class="slots-empty">Click on any date to see its booking status.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cal-tooltip" id="calTooltip"></div>
+    </div>
+
+    <!-- RULES & REGULATIONS -->
+    <div id="rules-regulation">
+        <div class="rulestext reveal">
+            <h2>🌴 Rules &amp; Regulations 🌴</h2>
+            <div class="section-divider"></div>
+            <p style="margin-top:16px;">To ensure safety, comfort, and enjoyment for all guests, please strictly follow these rules:</p>
+        </div>
+        <div class="rules-container">
+            <button class="arrow arrow-left">&#10094;</button>
+            <div class="rulesyan">
+                <div>
+                    <h3>👙 Proper Swimwear</h3>
+                    <p>• Wear appropriate swimwear (swimsuits, rashguards, swimming trunks, cycling shorts, etc.)</p>
+                    <p>• Maong/denim shorts, clothing with buttons and zippers are not allowed in the pool.</p>
+                    <p>• Babies must wear swimming diapers.</p>
+                </div>
+                <div>
+                    <h3>🚿 Shower Before Swimming</h3>
+                    <p>• All guests must shower before entering the pool.</p>
+                    <p>• Guests with open wounds, skin infections, or contagious illness are not allowed to swim.</p>
+                </div>
+                <div>
+                    <h3>👶 Children Supervision</h3>
+                    <p>• Children 12 years old and below must be accompanied and supervised by an adult at all times.</p>
+                    <p>• Lifeguards are for emergency response only; parental supervision is still required.</p>
+                </div>
+                <div>
+                    <h3>⚠️ Safety Rules</h3>
+                    <p>• No running around pool areas.</p>
+                    <p>• No diving in shallow areas.</p>
+                    <p>• No rough play, pushing, or dangerous behavior.</p>
+                    <p>• No glass bottles or breakable items near the pool.</p>
+                    <p>• No eating inside the pool area.</p>
+                    <p>• No smoking inside the pool area.</p>
+                </div>
+                <div>
+                    <h3>📋 Resort Responsibility</h3>
+                    <p>• Swim at your own risk.</p>
+                    <p>• Management is not liable for lost belongings or accidents due to failure to follow rules.</p>
+                </div>
+            </div>
+            <button class="arrow arrow-right">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div id="reviews-section">
+        <div class="reviews-header reveal">
+            <h2>GUEST REVIEWS</h2>
+            <div class="section-divider"></div>
+            <p style="margin-top:16px;">What our guests are saying</p>
+        </div>
+        <div class="reviews-actions reveal">
+            <button class="btn-review btn-submit-review" id="openReviewModal">✍️ &nbsp;Write a Review</button>
+            <button class="btn-review btn-view-reviews" id="toggleReviews">👁️ &nbsp;View All Reviews</button>
+        </div>
+        <div class="reviews-panel" id="reviewsPanel">
+            <div class="reviews-grid" id="reviewsGrid"></div>
+        </div>
+    </div>
+
+    <!-- REVIEW MODAL -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">&#215;</button>
+            <h3>Share Your Experience</h3>
+            <p class="modal-sub">Your feedback helps us improve and inspires other guests.</p>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="reviewName" placeholder="e.g. Maria Santos">
+            </div>
+            <div class="form-group">
+                <label>Your Rating</label>
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Upload Photos / Videos (optional)</label>
+                <input type="file" id="reviewImages" accept="image/*,video/*" multiple>
+                <small style="color:var(--muted);font-size:12px;">You may upload up to 6 photos or videos.</small>
+            </div>
+            <div class="form-group">
+                <label>Your Review</label>
+                <textarea id="reviewText" placeholder="Tell us about your stay — the pool, the rooms, the experience..."></textarea>
+            </div>
+            <button class="btn-submit" id="submitReview">Submit Review</button>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="success-toast" id="successToast">✅ &nbsp;Your review has been submitted! Thank you!</div>
+
+    <!-- FOOTER -->
+    <div id="main-footer" class="footer-block">
+        <div class="footer-brand">
+            <label class="palaciotext">PALACIO &nbsp;</label><label class="feliztext"><b>FELIZ</b></label>
+            <span class="footer-tagline">PRIVATE RESORT · BULACAN</span>
+        </div>
+        <div class="info-container">
+            <div class="information">
+                <div class="socialmedia">
+                    <p class="footer-col-label">Follow Us</p>
+                    <a href="https://www.facebook.com/profile.php?id=61575820877449" target="_blank">
+                        <img src="{{ url_for('static', filename='assets/Facebook logo nb.png') }}" alt="Facebook">
+                    </a>
+                </div>
+                <div class="tawaganmo">
+                    <p class="footer-col-label">Contact Us</p>
+                    <p class="tatawag">0931-058-3564</p>
+                </div>
+            </div>
+            <div class="puntahanmo">
+                <div class="pupuntakaba">
+                    <p class="footer-col-label">Find Us</p>
+                    <img src="{{ url_for('static', filename='assets/Pin nb.png') }}" alt="Address">
+                    <a href="https://maps.app.goo.gl/ywDK1zy4QWrmKCrD8" target="_blank">Gaya Gaya Bulacan, Evergreen Ave, Bulacan</a>
+                </div>
+            </div>
+        </div>
+        <div class="rights">
+            <p class="reserved">© 2025 <b>Palacio Feliz</b>. All rights reserved.</p>
+        </div>
+    </div>
+
+</div><!-- /page-main -->
+
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: BOOKING
+     id="page-booking"
+════════════════════════════════════════════════════════ -->
+<div id="page-booking" class="page">
+
+    <!-- NAV -->
+    <nav class="nav-booking">
+        <div class="logo-container">
+            <img class="logo" src="{{ url_for('static', filename='assets/Palacio (2).png') }}" alt="Palacio Feliz">
+        </div>
+        <button class="hamburger" id="booking-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="Services" id="booking-navLinks">
+            <a class="link" data-goto="page-main">Home</a>
+            <a class="link" data-goto="page-main" data-anchor="rates-container">Packages</a>
+            <a class="link" data-goto="page-main" data-anchor="Amenities-container">Amenities</a>
+            <a class="link" data-goto="page-calendar">Check Availability</a>
+            <a class="btn-link" data-goto="page-booking" data-anchor="booking-footer">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="content-container">
+        <video class="teaser" src="{{ url_for('static', filename='assets/') }}Teaser (1).mp4" autoplay loop muted playsinline></video>
+        <div class="hero-overlay">
+            <div class="scroll-hint">
+                <span>Scroll</span>
+                <div class="scroll-hint-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING WRAPPER -->
+    <div class="booking-wrapper">
+
+        <!-- CARD 1 -->
+        <div class="booking-card card-delay-1">
+            <div class="card-header">
+                <div class="card-number">1</div>
+                <h2>Schedule &amp; Availability</h2>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-body">
+                <div class="form-grid four-col">
+                    <div class="form-group">
+                        <label for="checkIn">Check-in Date</label>
+                        <input id="checkIn" type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adults">Adults</label>
+                        <input id="adults" type="number" min="1" max="50" placeholder="No. of Adults" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="children">Children (below 3ft)</label>
+                        <input id="children" type="number" min="0" max="50" placeholder="No. of Children">
+                    </div>
+                    <div class="form-group">
+                        <label for="accomSelect">Package</label>
+                        <select id="accomSelect" required>
+                            <option disabled selected value="">— Select Package —</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid" style="margin-top:20px;">
+                    <div class="form-group">
+                        <label for="timeSelect">Time Check-in &amp; Out</label>
+                        <select id="timeSelect" required disabled>
+                            <option selected value="">— Auto-filled from package —</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:24px;">
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Price</label>
+                    </div>
+                    <div class="price-display">
+                        <div class="price-amount" id="priceOutput">
+                            <strong>Total:</strong> ₱0<br>
+                            <strong>Schedule:</strong> --<br>
+                            <strong>Required Downpayment:</strong> ₱2,000
+                        </div>
+                        <input class="price-range-input" id="priceRange" type="range" min="0" max="35000" step="500" value="0" disabled>
+                    </div>
+                    <p style="font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px;">
+                        * Total and schedule auto-fill based on your selected accommodation type and date. Required downpayment is always ₱2,000.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="booking-card card-delay-2">
+            <div class="card-header">
+                <div class="card-number">2</div>
+                <h2>Guest Details</h2>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" type="text" placeholder="Juan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" type="text" placeholder="Dela Cruz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAddr">Email Address</label>
+                        <input id="emailAddr" type="email" placeholder="juan@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNum">Phone Number</label>
+                        <input id="phoneNum" type="tel" placeholder="09XXXXXXXXX" required>
+                    </div>
+                    <div class="form-group form-full">
+                        <label for="validID">Valid ID <span style="font-weight:400;text-transform:none;letter-spacing:0;">(Government-issued)</span></label>
+                        <input id="validID" type="file" accept="image/*,.pdf" required>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:20px;">
+                    <label for="specialRequest">Special Request</label>
+                    <textarea id="specialRequest" placeholder="E.g., Birthday setup, dietary restrictions, room preferences…"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="booking-card card-delay-3">
+            <div class="card-header">
+                <div class="card-number">3</div>
+                <h2>Payment &amp; Confirmation</h2>
+            </div>
+            <div class="card-divider"></div>
+            <div class="card-body">
+                <div class="form-group" style="margin-bottom:8px;">
+                    <label>Payment Method</label>
+                </div>
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <input type="radio" id="paymaya" name="bayadmethod" value="paymaya">
+                        <label for="paymaya"><span class="payment-icon">💳</span> PayMaya</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="gcash" name="bayadmethod" value="gcash">
+                        <label for="gcash"><span class="payment-icon">📱</span> GCash</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="cash" name="bayadmethod" value="cash">
+                        <label for="cash"><span class="payment-icon">💵</span> Cash</label>
+                    </div>
+                </div>
+                <div class="conditional-fields" id="cardFields">
+                    <div class="payment-qr-info">
+                        <img src="{{ url_for('static', filename='assets/Paymaya-bayad.png') }}" alt="PayMaya QR Code" class="payment-qr-img">
+                        <p class="payment-account-number">💳 PayMaya Number: <strong>09097852899</strong></p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cardHolder">Cardholder Name</label>
+                            <input id="cardHolder" type="text" placeholder="Juan Dela Cruz">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input id="cardNumber" type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txnScreenshot">Transaction Screenshot</label>
+                        <input id="txnScreenshot" type="file" accept="image/*">
+                    </div>
+                </div>
+                <div class="conditional-fields" id="gcashFields">
+                    <div class="payment-qr-info">
+                        <img src="{{ url_for('static', filename='assets/Gcash-bayad.png') }}" alt="GCash QR Code" class="payment-qr-img">
+                        <p class="payment-account-number">📱 GCash Number: <strong>09097852899</strong></p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="gcashName">Account Name</label>
+                            <input id="gcashName" type="text" placeholder="Registered GCash Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="gcashNum">GCash Number</label>
+                            <input id="gcashNum" type="tel" placeholder="09XXXXXXXXX">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="gcashScreenshot">Transaction Screenshot</label>
+                        <input id="gcashScreenshot" type="file" accept="image/*">
+                    </div>
+                </div>
+                <div class="conditional-fields" id="cashFields">
+                    <p style="font-size:13px;color:var(--muted);background:#fafafa;border:1.5px solid var(--border);padding:14px 18px;border-radius:8px;line-height:1.7;">
+                        💡 &nbsp;Cash payment is collected upon arrival at the resort. Please bring the exact amount.
+                        A <strong>20% down payment</strong>is required to confirm your reservation.
+                    </p>
+                </div>
+                <div class="card-divider" style="margin:24px 0;"></div>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>Agreements</label>
+                </div>
+                <div class="policy-box" for-policy="terms">
+                    <input id="termscondition" type="checkbox">
+                    <div class="policy-text">
+                        I have read and agree to the
+                        <a data-goto="page-terms">Terms &amp; Conditions</a>
+                        of Palacio Feliz Private Resort.
+                    </div>
+                </div>
+                <div class="policy-box" for-policy="cancel">
+                    <input id="cancelpolicy" type="checkbox">
+                    <div class="policy-text">
+                        I understand and accept the <strong>Cancellation Policy</strong>.
+                        Cancellations made less than 48 hours before the booking date are non-refundable.
+                    </div>
+                </div>
+                <button class="btn-confirm" id="confirmBtn">✦ &nbsp;Confirm Booking</button>
+            </div>
+        </div>
+
+    </div><!-- /booking-wrapper -->
+
+    <div class="success-toast" id="bookingToast">✅ &nbsp;Booking submitted! We'll contact you shortly to confirm.</div>
+
+    <!-- FOOTER -->
+    <div id="booking-footer" class="footer-block">
+        <div class="footer-brand">
+            <label class="palaciotext">PALACIO &nbsp;</label><label class="feliztext"><b>FELIZ</b></label>
+            <span class="footer-tagline">PRIVATE RESORT · BULACAN</span>
+        </div>
+        <div class="info-container">
+            <div class="information">
+                <div class="socialmedia">
+                    <p class="footer-col-label">Follow Us</p>
+                    <a href="https://www.facebook.com/profile.php?id=61575820877449" target="_blank">
+                        <img src="{{ url_for('static', filename='assets/Facebook logo (1).png') }}" alt="Facebook">
+                    </a>
+                </div>
+                <div class="tawaganmo">
+                    <p class="footer-col-label">Contact Us</p>
+                    <p class="tatawag">0931-058-3564</p>
+                </div>
+            </div>
+            <div class="puntahanmo">
+                <div class="pupuntakaba">
+                    <p class="footer-col-label">Find Us</p>
+                    <img src="{{ url_for('static', filename='assets/Pin nb.png') }}" alt="Address">
+                    <a href="https://maps.app.goo.gl/ywDK1zy4QWrmKCrD8" target="_blank">Gaya Gaya Bulacan, Evergreen Ave, Bulacan</a>
+                </div>
+            </div>
+        </div>
+        <div class="rights">
+            <p class="reserved">© 2025 <b>Palacio Feliz</b>. All rights reserved.</p>
+        </div>
+    </div>
+
+</div><!-- /page-booking -->
+
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: CALENDAR
+     id="page-calendar"
+════════════════════════════════════════════════════════ -->
+<div id="page-calendar" class="page">
+
+    <!-- NAV -->
+    <nav class="nav-calendar">
+        <div class="logo-container">
+            <img class="logo" src="{{ url_for('static', filename='assets/Palacio (2).png') }}" alt="Palacio Feliz">
+        </div>
+        <button class="hamburger" id="cal-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="Services" id="cal-navLinks">
+            <a class="link" data-goto="page-main">Home</a>
+            <a class="link" data-goto="page-main" data-anchor="rates-container">Packages</a>
+            <a class="link" data-goto="page-main" data-anchor="Amenities-container">Amenities</a>
+            <a class="link" data-goto="page-main" data-anchor="reviews-section">Reviews</a>
+            <a class="btn-link" data-goto="page-booking">Book Now</a>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <div class="cal-hero">
+        <div class="cal-hero-overlay">
+            <p class="cal-hero-label">Availability</p>
+            <h1 class="cal-hero-title">Booking <span>Calendar</span></h1>
+            <div class="cal-hero-divider"></div>
+            <p class="cal-hero-sub">Check available dates before making your reservation</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="cal-page">
+
+        <!-- LEGEND -->
+        <div class="legend reveal">
+            <div class="legend-item"><span class="legend-dot available-dot"></span><span>Available</span></div>
+            <div class="legend-item"><span class="legend-dot day-dot"></span><span>Day Swimming</span></div>
+            <div class="legend-item"><span class="legend-dot night-dot"></span><span>Night Swimming</span></div>
+            <div class="legend-item"><span class="legend-dot overnight-dot"></span><span>Overnight</span></div>
+            <div class="legend-item"><span class="legend-dot today-dot"></span><span>Today</span></div>
+            <div class="legend-item"><span class="legend-dot past-dot"></span><span>Past / Unavailable</span></div>
+        </div>
+
+        <!-- CALENDAR CARD -->
+        <div class="calendar-card reveal">
+            <div class="cal-month-nav">
+                <button class="cal-arrow" id="prev">&#10094;</button>
+                <h2 id="month-year"></h2>
+                <button class="cal-arrow" id="next">&#10095;</button>
+            </div>
+            <div class="cal-divider"></div>
+            <div class="cal-days-header">
+                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+                <div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+            <div class="cal-dates" id="dates"></div>
+        </div>
+
+        <!-- BOOKING SLOTS PANEL -->
+        <div class="slots-panel reveal" id="slotsPanel">
+            <div class="slots-header">
+                <h3 id="selectedDateLabel">Select a date to view bookings</h3>
+            </div>
+            <div class="slots-body" id="slotsBody">
+                <p class="slots-empty">Click on any date to see its booking status.</p>
+            </div>
+        </div>
+
+    </div><!-- /cal-page -->
+
+    <!-- TOOLTIP -->
+    <div class="cal-tooltip" id="calTooltip"></div>
+
+    <!-- FOOTER -->
+    <div class="footer-block">
+        <div class="footer-brand">
+            <label class="palaciotext">PALACIO &nbsp;</label><label class="feliztext"><b>FELIZ</b></label>
+            <span class="footer-tagline">PRIVATE RESORT · BULACAN</span>
+        </div>
+        <div class="info-container">
+            <div class="information">
+                <div class="socialmedia">
+                    <p class="footer-col-label">Follow Us</p>
+                    <a href="https://www.facebook.com/profile.php?id=61575820877449" target="_blank">
+                        <img src="{{ url_for('static', filename='assets/Facebook logo nb.png') }}" alt="Facebook">
+                    </a>
+                </div>
+                <div class="tawaganmo">
+                    <p class="footer-col-label">Contact Us</p>
+                    <p class="tatawag">0931-058-3564</p>
+                </div>
+            </div>
+            <div class="puntahanmo">
+                <div class="pupuntakaba">
+                    <p class="footer-col-label">Find Us</p>
+                    <img src="{{ url_for('static', filename='assets/Pin nb.png') }}" alt="Address">
+                    <a href="https://maps.app.goo.gl/ywDK1zy4QWrmKCrD8" target="_blank">Gaya Gaya Bulacan, Evergreen Ave, Bulacan</a>
+                </div>
+            </div>
+        </div>
+        <div class="rights">
+            <p class="reserved">© 2025 <b>Palacio Feliz</b>. All rights reserved.</p>
+        </div>
+    </div>
+
+</div><!-- /page-calendar -->
+
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE: TERMS & CONDITIONS
+     id="page-terms"
+════════════════════════════════════════════════════════ -->
+<div id="page-terms" class="page">
+
+    <!-- NAV -->
+    <nav class="navbar nav-terms">
+        <div class="logo-container">
+            <img class="logo" src="{{ url_for('static', filename='assets/Palacio (2).png') }}" alt="Palacio Feliz">
+        </div>
+        <button class="hamburger" id="terms-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="Services" id="terms-navLinks">
+            <a class="btn-link" data-goto="page-terms" data-anchor="terms-footer">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <div class="tc-hero">
+        <div class="tc-hero-overlay">
+            <p class="tc-hero-label">Legal</p>
+            <h1 class="tc-hero-title">Terms &amp; <span>Conditions</span></h1>
+            <div class="tc-hero-divider"></div>
+            <p class="tc-hero-sub">Please read carefully before completing your booking</p>
+        </div>
+    </div>
+
+    <!-- TERMS CONTAINER -->
+    <div id="condition-container">
+
+        <div class="tc-intro reveal">
+            <p>Welcome to <strong>Palacio Feliz Private Resort.</strong>
+               By booking or entering the resort premises, guests agree to comply with the
+               following <strong>Terms and Conditions.</strong></p>
+        </div>
+
+        <div class="tc-divider reveal"></div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">📋</div><h3>Booking &amp; Reservation Policy</h3></div>
+            <ul>
+                <li>Reservations are confirmed only upon payment of the required down payment.</li>
+                <li>Full payment must be settled before check-in.</li>
+                <li>Rates may vary depending on season, holidays, and special events.</li>
+                <li>Management reserves the right to refuse or cancel bookings due to policy violations.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">💳</div><h3>Payment Policy</h3></div>
+            <ul>
+                <li>Accepted payment methods: Cash, GCash, PayMaya, Bank Transfer.</li>
+                <li>Down payments are non-refundable but may be rescheduled subject to availability and management approval.</li>
+                <li>All additional charges incurred during the stay must be settled before check-out.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">🚫</div><h3>Cancellation &amp; Rebooking Policy</h3></div>
+            <ul>
+                <li>Cancellation must be made at least 3 days before the booking date.</li>
+                <li>Down payments are strictly non-refundable.</li>
+                <li>Rebooking is allowed once, subject to availability, and must be within 3 days from the original booking date.</li>
+                <li>No-shows will result in forfeiture of all payments made.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">🕐</div><h3>Check-in &amp; Check-out</h3></div>
+            <ul>
+                <li>Day Swimming: Check-in 6:00 AM — Check-out 5:00 PM.</li>
+                <li>Night Swimming: Check-in 6:00 PM — Check-out 5:00 AM.</li>
+                <li>Overnight: Check-in 8:00 AM — Check-out 8:00 AM (next day).</li>
+                <li>Early check-in and late check-out are subject to availability and may incur additional charges.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">🏠</div><h3>Guest Responsibilities</h3></div>
+            <ul>
+                <li>Guests are responsible for maintaining cleanliness and order during their stay.</li>
+                <li>Any damage to property, furniture, appliances, or facilities will be charged accordingly.</li>
+                <li>The resort is not liable for loss, theft, or damage of personal belongings.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">🏊</div><h3>Pool &amp; Safety Regulations</h3></div>
+            <ul>
+                <li>Proper swimwear must be worn at all times in pool areas.</li>
+                <li>Children must be supervised by a responsible adult at all times.</li>
+                <li>No diving in shallow areas.</li>
+                <li>Swim at your own risk.</li>
+                <li>Guests with contagious illness are not allowed to use the pool.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">⚠️</div><h3>Conduct &amp; Behavior</h3></div>
+            <ul>
+                <li>Strictly no illegal drugs or prohibited substances.</li>
+                <li>No firearms or deadly weapons allowed inside the premises.</li>
+                <li>Excessive noise after quiet hours is strictly prohibited.</li>
+                <li>Respect other guests and neighboring properties at all times.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">👥</div><h3>Visitor Policy</h3></div>
+            <ul>
+                <li>Only registered guests are allowed to use resort facilities.</li>
+                <li>Additional visitors may incur extra charges.</li>
+                <li>Management reserves the right to deny entry to unregistered guests.</li>
+            </ul>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">🌪️</div><h3>Force Majeure</h3></div>
+            <p class="tc-paragraph">Palacio Feliz Private Resort shall not be held liable for cancellations or
+               interruptions due to events beyond our control, including but not limited to natural disasters,
+               power outages, government restrictions, or emergencies.</p>
+        </div>
+
+        <div class="tc-section reveal">
+            <div class="tc-section-header"><div class="tc-section-icon">🏛️</div><h3>Management Rights</h3></div>
+            <ul>
+                <li>Refuse entry to guests who violate policies.</li>
+                <li>Terminate a stay without refund due to misconduct.</li>
+                <li>Update policies at any time without prior notice.</li>
+            </ul>
+        </div>
+
+        <div class="tc-divider reveal"></div>
+
+        <div class="tc-agreement reveal">
+            <h3>Agreement</h3>
+            <p>By clicking <strong>"I Agree to Terms &amp; Conditions"</strong>, I hereby acknowledge that I have read
+               and fully understood the <strong>Terms and Conditions</strong> of Palacio Feliz Private Resort
+               and I agree to comply with and be legally bound by the rules and policies stated therein.</p>
+            <a class="btn-agree" data-goto="page-booking">✦ &nbsp;I Agree to Terms &amp; Conditions</a>
+        </div>
+
+    </div><!-- /condition-container -->
+
+    <!-- FOOTER -->
+    <div id="terms-footer" class="footer-block">
+        <div class="footer-brand">
+            <label class="palaciotext">PALACIO &nbsp;</label><label class="feliztext"><b>FELIZ</b></label>
+            <span class="footer-tagline">PRIVATE RESORT · BULACAN</span>
+        </div>
+        <div class="info-container">
+            <div class="information">
+                <div class="socialmedia">
+                    <p class="footer-col-label">Follow Us</p>
+                    <a href="https://www.facebook.com/profile.php?id=61575820877449" target="_blank">
+                        <img src="{{ url_for('static', filename='assets/Facebook logo (1).png') }}" alt="Facebook">
+                    </a>
+                </div>
+                <div class="tawaganmo">
+                    <p class="footer-col-label">Contact Us</p>
+                    <p class="tatawag">0931-058-3564</p>
+                </div>
+            </div>
+            <div class="puntahanmo">
+                <div class="pupuntakaba">
+                    <p class="footer-col-label">Find Us</p>
+                    <img src="{{ url_for('static', filename='assets/Pin.png') }}" alt="Address">
+                    <a href="https://maps.app.goo.gl/ywDK1zy4QWrmKCrD8" target="_blank">Gaya Gaya Bulacan, Evergreen Ave, Bulacan</a>
+                </div>
+            </div>
+        </div>
+        <div class="rights">
+            <p class="reserved">© 2025 <b>Palacio Feliz</b>. All rights reserved.</p>
+        </div>
+    </div>
+
+</div><!-- /page-terms -->
+
+<script src="{{ url_for('static', filename='js/palacio_customer.js') }}"></script>
+</body>
+</html>
