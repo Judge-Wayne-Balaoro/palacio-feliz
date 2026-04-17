@@ -17,7 +17,14 @@ auth_bp = Blueprint("auth", __name__)
 # ── POST /api/auth/login ──────────────────────────────────────────────────────
 @auth_bp.post("/login")
 def login():
-    data     = request.get_json(silent=True) or {}
+    # Force JSON parsing - reject requests without proper Content-Type
+    if not request.is_json:
+        return error("Content-Type must be application/json.", 400)
+
+    data = request.get_json(silent=True)
+    if data is None:
+        return error("Invalid JSON body.", 400)
+
     username = data.get("username", "").strip()
     password = data.get("password", "")
 
@@ -79,6 +86,9 @@ def register():
     if not expected or setup_token != expected:
         return error("Unauthorized. Valid X-Setup-Token header required.", 403)
 
+    if not request.is_json:
+        return error("Content-Type must be application/json.", 400)
+
     data      = request.get_json(silent=True) or {}
     username  = data.get("username", "").strip()
     email     = data.get("email", "").strip()
@@ -102,3 +112,21 @@ def register():
     db.session.add(user)
     db.session.commit()
     return success(user.to_dict(), "Admin created.", 201)
+
+
+# ── GET /api/auth/health ─────────────────────────────────────────────────────
+@auth_bp.get("/health")
+def health_check():
+    """
+    Diagnostic endpoint to check environment and admin user status.
+    Useful for debugging production deployment issues.
+    """
+    admin_count = AdminUser.query.count()
+    has_setup_token = bool(current_app.config.get("SETUP_TOKEN", ""))
+
+    return success({
+        "admin_users_count": admin_count,
+        "has_setup_token": has_setup_token,
+        "flask_env": current_app.config.get("FLASK_ENV", "unknown"),
+        "database_configured": bool(current_app.config.get("SQLALCHEMY_DATABASE_URI")),
+    })

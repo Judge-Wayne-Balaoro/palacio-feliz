@@ -88,21 +88,43 @@ input{
                 const username = document.getElementById("username").value.trim();
                 const password = document.getElementById("password").value.trim();
 
-                const res = await fetch("/api/auth/login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await res.json();
-
-                if (!res.ok) {
-                    alert(data.message || "Login failed");
+                if (!username || !password) {
+                    alert("Please enter both username and password");
                     return;
                 }
 
-                localStorage.setItem("token", data.data.token);
-                window.location.href = "/admin";
+                const loginBtn = document.getElementById("loginBtn");
+                const originalText = loginBtn.textContent;
+                loginBtn.textContent = "Logging in...";
+                loginBtn.disabled = true;
+
+                try {
+                    const res = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, password })
+                    });
+
+                    const data = await res.json();
+
+                    if (!res.ok) {
+                        // More detailed error for 400 status
+                        if (res.status === 400) {
+                            alert("Server error: " + (data.message || "Invalid request"));
+                            return;
+                        }
+                        alert(data.message || "Login failed. Please check your credentials.");
+                        return;
+                    }
+
+                    localStorage.setItem("token", data.data.token);
+                    window.location.href = "/admin";
+                } catch (err) {
+                    alert("Connection error: " + err.message + "\\n\\nIf this persists, check that the server is running and environment variables are set correctly on Render.");
+                } finally {
+                    loginBtn.textContent = originalText;
+                    loginBtn.disabled = false;
+                }
             });
             </script>
         </div>
