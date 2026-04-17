@@ -11,10 +11,12 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key')
     DEBUG = False
 
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        'DATABASE_URL',
-        'mysql+pymysql://root:Mysqlyansiya%40123@localhost:3306/palacio_feliz'
-    )
+    database_url = os.getenv('DATABASE_URL', '')
+
+    if database_url.startswith('postgres://'):
+        database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
+    SQLALCHEMY_DATABASE_URI = database_url
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'jwt-dev-secret')
@@ -28,7 +30,6 @@ class Config:
     DOWNPAYMENT_REQUIRED = int(os.getenv('DOWNPAYMENT_REQUIRED', 2000))
     MAX_PAX = int(os.getenv('MAX_PAX', 50))
 
-    # FIX #7: Setup token for protecting the /register endpoint
     SETUP_TOKEN = os.getenv('SETUP_TOKEN', '')
 
     MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
@@ -57,4 +58,3 @@ config_map = {
 def get_config():
     env = os.getenv('FLASK_ENV', 'development')
     return config_map.get(env, DevelopmentConfig)
-

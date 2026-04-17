@@ -3,6 +3,7 @@ models/__init__.py  –  All SQLAlchemy models for Palacio Feliz
 """
 from datetime import datetime, timezone
 from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 def _now():
@@ -15,21 +16,29 @@ def _now():
 class AdminUser(db.Model):
     __tablename__ = "admin_users"
 
-    id         = db.Column(db.Integer, primary_key=True)
-    username   = db.Column(db.String(80),  unique=True, nullable=False)
-    email      = db.Column(db.String(120), unique=True, nullable=False)
-    password   = db.Column(db.String(256), nullable=False)   # bcrypt hash
-    full_name  = db.Column(db.String(120))
-    role       = db.Column(db.String(40), default="admin")
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(256), nullable=False)
+    full_name = db.Column(db.String(120))
+    role = db.Column(db.String(40), default="admin")
     created_at = db.Column(db.DateTime, default=_now)
+
+    # 🔐 SET PASSWORD (hash)
+    def set_password(self, raw_password):
+        self.password = generate_password_hash(raw_password)
+
+    # 🔐 CHECK PASSWORD
+    def check_password(self, raw_password):
+        return check_password_hash(self.password, raw_password)
 
     def to_dict(self):
         return {
-            "id":        self.id,
-            "username":  self.username,
-            "email":     self.email,
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
             "full_name": self.full_name,
-            "role":      self.role,
+            "role": self.role,
         }
 
 
