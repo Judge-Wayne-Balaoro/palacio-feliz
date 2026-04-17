@@ -11,7 +11,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key')
     DEBUG = False
 
-    database_url = os.getenv('DATABASE_URL', '')
+    database_url = os.getenv('DATABASE_URL', 'postgresql://neondb_owner:npg_TCQ8fm5xonkY@ep-flat-sky-a1m4vcn6.ap-southeast-1.aws.neon.tech/neondb?sslmode=require')
 
     if database_url.startswith('postgres://'):
         database_url = database_url.replace('postgres://', 'postgresql://', 1)
