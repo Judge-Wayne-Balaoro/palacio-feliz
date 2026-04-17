@@ -32,6 +32,13 @@ def create_app(config_obj=None):
     jwt.init_app(app)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+    # Auto-create tables on startup (useful for Render deployment)
+    with app.app_context():
+        try:
+            db.create_all()
+        except Exception as e:
+            app.logger.error(f"Failed to create tables: {e}")
+
     from app.routes.auth import auth_bp
     from app.routes.bookings import bookings_bp
     from app.routes.packages import packages_bp

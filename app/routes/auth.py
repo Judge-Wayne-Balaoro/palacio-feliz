@@ -80,6 +80,7 @@ def register():
     Pass the token in the X-Setup-Token header when creating the first admin.
     Remove or disable this route once the initial admin is created.
     """
+    import traceback
     setup_token = request.headers.get("X-Setup-Token", "")
     expected    = current_app.config.get("SETUP_TOKEN", "")
 
@@ -98,20 +99,25 @@ def register():
     if not username or not email or not password:
         return error("username, email and password are required.", 400)
 
-    if AdminUser.query.filter(
-        (AdminUser.username == username) | (AdminUser.email == email)
-    ).first():
-        return error("Username or email already exists.", 409)
+    try:
+        if AdminUser.query.filter(
+            (AdminUser.username == username) | (AdminUser.email == email)
+        ).first():
+            return error("Username or email already exists.", 409)
 
-    user = AdminUser(
-        username=username,
-        email=email,
-        password=generate_password_hash(password),
-        full_name=full_name,
-    )
-    db.session.add(user)
-    db.session.commit()
-    return success(user.to_dict(), "Admin created.", 201)
+        user = AdminUser(
+            username=username,
+            email=email,
+            password=generate_password_hash(password),
+            full_name=full_name,
+        )
+        db.session.add(user)
+        db.session.commit()
+        return success(user.to_dict(), "Admin created.", 201)
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Register error: {e}\n{traceback.format_exc()}")
+        return error(f"Server error: {str(e)}", 500)
 
 
 # ── GET /api/auth/health ─────────────────────────────────────────────────────
